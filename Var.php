@@ -325,8 +325,12 @@ class Stream_Var {
     {
         $url = parse_url($path);
 
-        $scope   = $url["host"];
-        $varpath = substr($url["path"], 1);
+        $scope   = $url['host'];
+        if (isset($url['path'])) {
+            $varpath = substr($url['path'], 1);
+        } else {
+            $varpath = '';
+        }
         
         if (!$status = $this->_setPointer($scope, $varpath))
             return  false;
