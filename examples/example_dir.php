@@ -1,5 +1,5 @@
 <?PHP
-    require_once '../Var.php';
+    require_once 'Stream/Var.php';
     stream_wrapper_register( "var", "Stream_Var" );
 
     $dirname = 'var://_SERVER';

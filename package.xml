@@ -8,38 +8,30 @@
     <maintainer>
       <user>schst</user>
       <name>Stephan Schmidt</name>
-      <email>schst@php.net</email>
+      <email>schst@php-tools.net</email>
       <role>lead</role>
     </maintainer>
   </maintainers>
   <release>
-    <version>0.2.1</version>
-    <date>2003-08-19</date>
+    <version>1.0.0</version>
+    <date>2004-10-31</date>
     <license>PHP License</license>
     <state>stable</state>
-    <notes>fixed bug in dir_opendir, fixed example</notes>
+    <notes>- fixed bug #2579: warning at stream_open(),
+- fixed notice in dir_opendir,
+- bumped to version 1.0.0, according to version number guidelines</notes>
     <deps>
-      <dep type="php" rel="ge" version="4.3.2"/>
+      <dep type="php" rel="ge" version="4.3.2" optional="no"/>
     </deps>
-    <provides type="class" name="Stream_Var" />
-    <provides type="function" name="Stream_Var::stream_open" />
-    <provides type="function" name="Stream_Var::stream_eof" />
-    <provides type="function" name="Stream_Var::stream_tell" />
-    <provides type="function" name="Stream_Var::stream_close" />
-    <provides type="function" name="Stream_Var::stream_read" />
-    <provides type="function" name="Stream_Var::stream_write" />
-    <provides type="function" name="Stream_Var::stream_seek" />
-    <provides type="function" name="Stream_Var::stream_flush" />
-    <provides type="function" name="Stream_Var::stream_stat" />
-    <provides type="function" name="Stream_Var::dir_opendir" />
-    <provides type="function" name="Stream_Var::dir_closedir" />
-    <provides type="function" name="Stream_Var::dir_rewinddir" />
-    <provides type="function" name="Stream_Var::dir_readdir" />
     <filelist>
-      <file role="doc" baseinstalldir="Stream" md5sum="52446e94dbc213d913219f25f2d63b37" name="examples/example_dir.php"/>
-      <file role="doc" baseinstalldir="Stream" md5sum="37f3591325b268b77e4cc89051f8e6e2" name="examples/example_file.php"/>
-      <file role="doc" baseinstalldir="Stream" md5sum="5addd708488bd21d31b764c844abd888" name="examples/example_modes.php"/>
-      <file role="php" baseinstalldir="Stream" md5sum="623f99fb90d4f1835d6143f7c3b5bfac" name="Var.php"/>
+      <dir baseinstalldir="Stream" name="/">
+       <dir name="examples">
+        <file role="doc" name="example_dir.php"/>
+        <file role="doc" name="example_file.php"/>
+        <file role="doc" name="example_modes.php"/>
+       </dir> <!-- examples -->
+       <file role="php" name="Var.php"/>
+      </dir> <!-- / -->
     </filelist>
   </release>
   <changelog>
@@ -56,6 +48,15 @@
       <license>PHP License</license>
       <state>stable</state>
       <notes>fixed bug in dir_opendir, fixed example</notes>
+    </release>
+    <release>
+      <version>1.0.0</version>
+      <date>2004-10-31</date>
+      <license>PHP License</license>
+      <state>stable</state>
+      <notes>- fixed bug #2579: warning at stream_open(),
+- fixed notice in dir_opendir,
+- bumped to version 1.0.0, according to version number guidelines</notes>
     </release>
   </changelog>
 </package>
