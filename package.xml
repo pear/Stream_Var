@@ -1,62 +1,146 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<package version="1.0">
-  <name>Stream_Var</name>
-  <summary>Allows stream based access to any variable.</summary>
-  <description>Stream_Var can be registered as a stream with stream_register_wrapper() and allows stream based acces to variables in any scope. Arrays are treated as directories, so it's possible to replace temporary directories and files in your application with variables.</description>
-  <maintainers>
-    <maintainer>
-      <user>schst</user>
-      <name>Stephan Schmidt</name>
-      <email>schst@php-tools.net</email>
-      <role>lead</role>
-    </maintainer>
-  </maintainers>
+<?xml version="1.0" encoding="UTF-8"?>
+<package version="2.0"
+ xmlns="http://pear.php.net/dtd/package-2.0"
+ xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+  http://pear.php.net/dtd/tasks-1.0.xsd
+  http://pear.php.net/dtd/package-2.0
+  http://pear.php.net/dtd/package-2.0.xsd"
+>
+ <name>Stream_Var</name>
+ <channel>pear.php.net</channel>
+ <summary>Allows stream based access to any variable.</summary>
+ <description>
+  Stream_Var can be registered as a stream with stream_register_wrapper()
+  and allows stream based acces to variables in any scope.
+  Arrays are treated as directories, so it is possible to replace
+  temporary directories and files in your application with variables.
+ </description>
+
+ <lead>
+  <name>Stephan Schmidt</name>
+  <user>schst</user>
+  <email>schst@php-tools.net</email>
+  <active>no</active>
+ </lead>
+
+ <date>2009-08-12</date>
+ <time>08:43:50</time>
+
+ <version>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+
+ <license uri="http://www.php.net/license">PHP License</license>
+ <notes>
+QA release:
+- Fix bug #4229: Stream_Var needs url_stat method [ahayes]
+- CS fixes [cweiske]
+- Convert to package.xml v2
+ </notes>
+
+ <contents>
+  <dir name="/">
+   <dir name="examples">
+    <file name="example_dir.php" role="doc" />
+    <file name="example_file.php" role="doc" />
+    <file name="example_modes.php" role="doc" />
+   </dir> <!-- //examples -->
+   <dir name="Stream">
+    <file name="Var.php" role="php" />
+   </dir>
+  </dir> <!-- / -->
+ </contents>
+
+ <dependencies>
+  <required>
+   <php>
+    <min>4.3.2</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+
+ <phprelease />
+
+ <changelog>
   <release>
-    <version>1.0.0</version>
-    <date>2004-10-31</date>
-    <license>PHP License</license>
-    <state>stable</state>
-    <notes>- fixed bug #2579: warning at stream_open(),
-- fixed notice in dir_opendir,
-- bumped to version 1.0.0, according to version number guidelines</notes>
-    <deps>
-      <dep type="php" rel="ge" version="4.3.2" optional="no"/>
-    </deps>
-    <filelist>
-      <dir baseinstalldir="Stream" name="/">
-       <dir name="examples">
-        <file role="doc" name="example_dir.php"/>
-        <file role="doc" name="example_file.php"/>
-        <file role="doc" name="example_modes.php"/>
-       </dir> <!-- examples -->
-       <file role="php" name="Var.php"/>
-      </dir> <!-- / -->
-    </filelist>
+   <version>
+    <release>0.2</release>
+    <api>0.2</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-08-16</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+inital release
+   </notes>
   </release>
-  <changelog>
-    <release>
-      <version>0.2</version>
-      <date>2003-08-16</date>
-      <license>PHP License</license>
-      <state>stable</state>
-      <notes>inital release</notes>
-    </release>
-    <release>
-      <version>0.2.1</version>
-      <date>2003-08-19</date>
-      <license>PHP License</license>
-      <state>stable</state>
-      <notes>fixed bug in dir_opendir, fixed example</notes>
-    </release>
-    <release>
-      <version>1.0.0</version>
-      <date>2004-10-31</date>
-      <license>PHP License</license>
-      <state>stable</state>
-      <notes>- fixed bug #2579: warning at stream_open(),
+
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.2.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2003-08-19</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+fixed bug in dir_opendir, fixed example
+   </notes>
+  </release>
+
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2004-10-31</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+- fixed bug #2579: warning at stream_open(),
 - fixed notice in dir_opendir,
-- bumped to version 1.0.0, according to version number guidelines</notes>
-    </release>
-  </changelog>
+- bumped to version 1.0.0, according to version number guidelines
+   </notes>
+  </release>
+
+  <release>
+   <version>
+    <release>1.1.0</release>
+    <api>1.1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-08-12</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>
+QA release:
+- Fix bug #4229: Stream_Var needs url_stat method [ahayes]
+- CS fixes [cweiske]
+- Convert to package.xml v2
+   </notes>
+  </release>
+
+ </changelog>
+
 </package>
