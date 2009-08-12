@@ -312,6 +312,75 @@ class Stream_Var {
         return $stat;
     }
 
+    /**
+     * This method is called in response to stat() calls on the URL paths
+     * 
+     * As taken from the PHP Manual:
+     * 
+     * "This method is called in response to stat()  calls on the URL paths 
+     * associated with the wrapper and should return as many elements in 
+     * common with the system function as possible. Unknown or unavailable 
+     * values should be set to a rational value (usually 0)."
+     * 
+     * With regards to the implementation that is Stream_Var we can actually fake
+     * some of the data. For instance, the uid and gid can be that of the corrent
+     * posix_getuid and posix_getgid() 
+     * 
+     * The following outlines the information that we essentially fake:
+     * 
+     *     - 'dev': is unknown and set to 0
+     *     - 'ino': is unknown and set to 0
+     *     - 'mode': set to 33216 (chmod 700 means user has read, write and execute on the file)
+     *     - 'nlink': is unknown and set to 0
+     *     - 'uid': if the method posix_getuid exist, this is called, otherwise 0 is returned
+     *     - 'gid': if the method posix_getgid exist, this is called, otherwise 0 is returned
+     *     - 'rdev' unknown and set to 0
+     *     - 'size': is set to the strlen of the pointer.
+     *     - 'atime': set to current value returned by time()
+     *     - 'mtime': set to current value returned by time()
+     *     - 'ctime': set to current value returned by time()
+     *     - 'blksize': is unknown and set to 0
+     *     - 'blocks': is unknown and set to 0
+     * 
+     * @param string $path        The path to stat.
+     * @param integer $flags      Holds additional flags set by the streams API. 
+     *                            It can hold one or more of the following values 
+     *                            OR'd together.
+     *                                - STREAM_URL_STAT_LINK - currently this is 
+     *                                  ignored.
+     *                                - STREAM_URL_STAT_QUIET - makes call to 
+     *                                  strlen quiet
+     * 
+     * @return array
+     * 
+     * @see http://au.php.net/stream_wrapper_register
+     * @author Alex Hayes <ahayes@wcg.net.au>
+     */
+    function url_stat($path, $flags)
+    {
+        $time = time();
+        $keys = array(
+            'dev'     => 0,
+            'ino'     => 0,
+            // chmod 700 means user has read, write and execute on the file
+            'mode'    => 33216,
+            'nlink'   => 0,
+            //this processes uid
+            'uid'     => function_exists('posix_getuid') ? posix_getuid() : 0,
+            //this processes gid
+            'gid'     => function_exists('posix_getgid') ? posix_getgid() : 0, 
+            'rdev'    => 0,
+            'size'    => $flags & STREAM_URL_STAT_QUIET
+                ? @strlen($this->_pointer) : strlen($this->_pointer),
+            'atime'   => $time,
+            'mtime'   => $time,
+            'ctime'   => $time,
+            'blksize' => 0,
+            'blocks'  => 0
+        );
+
+        return array_merge(array_values($keys), $keys);
+    }
 
    /**
     * open 'directory'
