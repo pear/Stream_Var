@@ -8,7 +8,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "Stream_Var": "./"
+            "Stream": "./"
         }
     },
     "description": "More info available on: http://pear.php.net/package/Stream_Var",
