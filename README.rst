@@ -60,4 +60,4 @@ Unit test status
   .. image:: https://travis-ci.org/pear/Stream_Var.svg?branch=master
      :target: https://travis-ci.org/pear/Stream_Var
 Packagist
-  https://packagist.org/packages/pear/console_commandline
+  https://packagist.org/packages/pear/stream_var
