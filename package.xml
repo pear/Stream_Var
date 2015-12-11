@@ -37,7 +37,7 @@
   <api>stable</api>
  </stability>
 
- <license uri="http://www.php.net/license">PHP License</license>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
 QA release:
 - Fix bug #4229: Stream_Var needs url_stat method [ahayes]

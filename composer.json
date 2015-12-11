@@ -16,7 +16,7 @@
     "include-path": [
         "./"
     ],
-    "license": "PHP-3.0",
+    "license": "LGPL-3.0",
     "name": "pear/stream_var",
     "support": {
         "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Stream_Var",

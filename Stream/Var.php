@@ -7,7 +7,7 @@
  * @category Stream
  * @package  Stream_Var
  * @author   Stephan Schmidt <schst@php-tools.net>
- * @license  http://www.php.net/license/2_02.txt PHP 2.02
+ * @license  http://www.gnu.org/copyleft/lesser.html LGPL
  * @link     http://pear.php.net/package/Stream_Var
  */
 
@@ -72,7 +72,7 @@ define("STREAM_VAR_WRITEABLE", 2);
  * @category Stream
  * @package  Stream_Var
  * @author   Stephan Schmidt <schst@php-tools.net>
- * @license  http://www.php.net/license/2_02.txt PHP 2.02
+ * @license  http://www.gnu.org/copyleft/lesser.html LGPL
  * @version  Release: @package_version@
  * @link     http://pear.php.net/package/Stream_Var
  */
