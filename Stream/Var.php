@@ -1,32 +1,24 @@
-<?PHP
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | PHP Version 4                                                        |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2002 The PHP Group                                |
-// +----------------------------------------------------------------------+
-// | This source file is subject to version 2.0 of the PHP license,       |
-// | that is bundled with this package in the file LICENSE, and is        |
-// | available at through the world-wide-web at                           |
-// | http://www.php.net/license/2_02.txt.                                 |
-// | If you did not receive a copy of the PHP license and are unable to   |
-// | obtain it through the world-wide-web, please send a note to          |
-// | license@php.net so we can mail you a copy immediately.               |
-// +----------------------------------------------------------------------+
-// | Authors: Stephan Schmidt <schst@php-tools.net>                       |
-// |          partly based on an exmple by Wez Furlong                    |
-// +----------------------------------------------------------------------+
-//
-//    $Id$
+<?php
+/**
+ * Stream wrapper to access a variable.
+ *
+ * PHP version 5+
+ *
+ * @category Stream
+ * @package  Stream_Var
+ * @author   Stephan Schmidt <schst@php-tools.net>
+ * @license  http://www.php.net/license/2_02.txt PHP 2.02
+ * @link     http://pear.php.net/package/Stream_Var
+ */
 
 /**
- * stream is readable
+ * Stream is readable.
  * This depends on the mode, that is used for opening the stream
  */
 define("STREAM_VAR_READABLE", 1);
 
 /**
- * stream is writeable
+ * Stream is writeable.
  * This depends on the mode, that is used for opening the stream
  */
 define("STREAM_VAR_WRITEABLE", 2);
@@ -34,9 +26,9 @@ define("STREAM_VAR_WRITEABLE", 2);
 /**
  * Stream wrapper to access a variable
  *
- * Stream wrappers allow you to access any datasource using PHP's file manipulation functions
- * like fopen(), fclose(), fseek(), ftell(),.. as well as directory functions like
- * opendir() readdir() and closedir().
+ * Stream wrappers allow you to access any datasource using PHP's file manipulation
+ * functions like fopen(), fclose(), fseek(), ftell(),.. as well as
+ * directory functions like opendir() readdir() and closedir().
  *
  * This wrapper allows you to access any variable using these functions.
  * You have to specify a scope (GLOBALS, _GET, _POST, etc.) as the host and
@@ -53,8 +45,9 @@ define("STREAM_VAR_WRITEABLE", 2);
  *  fclose($fp);
  * </code>
  *
- * This wrapper also has support for dir functions, so it's possible to read any array, like
- * you would read a directory. The following code will list all keys in an array.
+ * This wrapper also has support for dir functions, so it's possible to read
+ * any array, like you would read a directory.
+ * The following code will list all keys in an array.
  * You could use fopen() to read the values for the keys.
  *
  * <code>
@@ -78,56 +71,55 @@ define("STREAM_VAR_WRITEABLE", 2);
  *
  * @category Stream
  * @package  Stream_Var
- * @version  0.2.1
  * @author   Stephan Schmidt <schst@php-tools.net>
+ * @license  http://www.php.net/license/2_02.txt PHP 2.02
+ * @version  Release: @package_version@
  * @link     http://pear.php.net/package/Stream_Var
  */
 class Stream_Var
 {
 
     /**
-    * pointer to the variable
-    *
-    * @var mixed $_pointer
-    */
-    var $_pointer = null;
+     * Pointer to the current variable
+     *
+     * @var mixed
+     */
+    protected $_pointer = null;
 
     /**
-    * flag to indicate whether stream is open
-    *
-    * @var boolean
-    */
-    var $_open = false;
+     * Flag to indicate whether stream is open
+     *
+     * @var boolean
+     */
+    protected $_open = false;
 
     /**
-    * position
-    *
-    * @var integer
-    */
-    var $_pos = 0;
+     * Position
+     *
+     * @var integer
+     */
+    protected $_pos = 0;
 
     /**
-    * mode of the opened file
-    *
-    * @var integer
-    */
-    var $_mode = 0;
+     * Mode of the opened file
+     *
+     * @var integer
+     */
+    protected $_mode = 0;
 
     /**
-    * Method used by fopen.
-    *
-    * @param string $path         Path to the variable
-    *                             (e.g. var://GLOBALS/myArray/anyIndex)
-    * @param string $mode         Mode to open the stream,
-    *                             like 'r', 'w,',... ({@see fopen()})
-    * @param array  $options      Options (not implemented yet)
-    * @param string &$opened_path This will be set to the actual opened path
-    *
-    * @return boolean $success
-    *
-    * @access public
-    */
-    function stream_open($path, $mode, $options, &$opened_path)
+     * Method used by fopen.
+     *
+     * @param string $path        Path to the variable
+     *                            (e.g. var://GLOBALS/myArray/anyIndex)
+     * @param string $mode        Mode to open the stream,
+     *                            like 'r', 'w,',... ({@see fopen()})
+     * @param array  $options     Options (not implemented yet)
+     * @param string $opened_path This will be set to the actual opened path
+     *
+     * @return boolean $success
+     */
+    public function stream_open($path, $mode, $options, &$opened_path)
     {
         $mode = strtolower($mode);
         switch ($mode{0}) {
@@ -175,52 +167,44 @@ class Stream_Var
     }
 
     /**
-    * Check for end of stream.
-    *
-    * @return boolean True if at end of stream
-    *
-    * @access public
-    */
-    function stream_eof()
+     * Check for end of stream.
+     *
+     * @return boolean True if at end of stream
+     */
+    public function stream_eof()
     {
         return ($this->_pos >= strlen($this->_pointer));
     }
 
     /**
-    * Return the current position.
-    *
-    * @return integer Current position in stream
-    *
-    * @access public
-    */
-    function stream_tell()
+     * Return the current position.
+     *
+     * @return integer Current position in stream
+     */
+    public function stream_tell()
     {
         return $this->_pos;
     }
 
     /**
-    * Close the stream.
-    *
-    * @return void
-    *
-    * @access public
-    */
-    function stream_close()
+     * Close the stream.
+     *
+     * @return void
+     */
+    public function stream_close()
     {
         $this->_pos  = 0;
         $this->_open = false;
     }
 
     /**
-    * Read from the stream.
-    *
-    * @param integer $count Amount of bytes to read
-    *
-    * @return string $data Data that has been read
-    *
-    * @access public
-    */
-    function stream_read($count)
+     * Read from the stream.
+     *
+     * @param integer $count Amount of bytes to read
+     *
+     * @return string $data Data that has been read
+     */
+    public function stream_read($count)
     {
         if (!$this->_open) {
             return false;
@@ -236,15 +220,13 @@ class Stream_Var
     }
 
     /**
-    * write to the stream.
-    *
-    * @param mixed $data Data to write
-    *
-    * @return integer Number of bytes that were written
-    *
-    * @access public
-    */
-    function stream_write($data)
+     * Write to the stream.
+     *
+     * @param mixed $data Data to write
+     *
+     * @return integer Number of bytes that were written
+     */
+    public function stream_write($data)
     {
         if (!$this->_open) {
             return false;
@@ -265,17 +247,15 @@ class Stream_Var
     }
 
     /**
-    * Move the position in the stream.
-    *
-    * @param integer $offset Offset
-    * @param integer $whence Point from which the offset
-    *                        should be calculated
-    *
-    * @return boolean True if the position could be reached
-    *
-    * @access public
-    */
-    function stream_seek($offset, $whence)
+     * Move the position in the stream.
+     *
+     * @param integer $offset Offset
+     * @param integer $whence Point from which the offset
+     *                        should be calculated
+     *
+     * @return boolean True if the position could be reached
+     */
+    public function stream_seek($offset, $whence)
     {
         switch ($whence) {
         //  from start
@@ -311,25 +291,22 @@ class Stream_Var
     }
 
     /**
-    * Write all data to storage.
-    *
-    * @return boolean Always true
-    *
-    * @access public
-    */
-    function stream_flush()
+     * Write all data to storage.
+     *
+     * @return boolean Always true
+     */
+    public function stream_flush()
     {
         return true;
     }
 
     /**
-    * Return information about the stream.
-    *
-    * @access public
-    * @return array $stat Information about the stream
-    *                     (currently only the length is included)
-    */
-    function stream_stat()
+     * Return information about the stream.
+     *
+     * @return array $stat Information about the stream
+     *                     (currently only the length is included)
+     */
+    public function stream_stat()
     {
         $stat = array(
             'size' => strlen($this->_pointer)
@@ -381,10 +358,10 @@ class Stream_Var
      *
      * @return array
      *
-     * @see http://au.php.net/stream_wrapper_register
+     * @see    http://au.php.net/stream_wrapper_register
      * @author Alex Hayes <ahayes@wcg.net.au>
      */
-    function url_stat($path, $flags)
+    public function url_stat($path, $flags)
     {
         if (!$this->setPointerFromPath($path, false)) {
             //does not exist 
@@ -416,16 +393,14 @@ class Stream_Var
     }
 
     /**
-    * Open 'directory'
-    *
-    * @param string $path    Path to the array (i.e. the directory)
-    * @param array  $options Not implemented, yet.
-    *
-    * @return boolean $success
-    *
-    * @access public
-    */
-    function dir_opendir($path, $options)
+     * Open 'directory'
+     *
+     * @param string $path    Path to the array (i.e. the directory)
+     * @param array  $options Not implemented, yet.
+     *
+     * @return boolean $success
+     */
+    public function dir_opendir($path, $options)
     {
         if (!$this->setPointerFromPath($path, false)) {
             return false;
@@ -441,26 +416,22 @@ class Stream_Var
 
 
     /**
-    * Close 'directory'
-    *
-    * @return boolean $success
-    *
-    * @access public
-    */
-    function dir_closedir()
+     * Close 'directory'
+     *
+     * @return boolean $success
+     */
+    public function dir_closedir()
     {
         $this->_open = false;
         return true;
     }
 
     /**
-    * Rewind 'directory'
-    *
-    * @return boolean $success
-    *
-    * @access public
-    */
-    function dir_rewinddir()
+     * Rewind 'directory'
+     *
+     * @return boolean $success
+     */
+    public function dir_rewinddir()
     {
         if (!$this->_open) {
             return false;
@@ -470,14 +441,12 @@ class Stream_Var
     }
 
     /**
-    * Read one entry from 'directory'
-    *
-    * @return mixed $entry Entry that has been read, or
-    *                      false if there are no entries left
-    *
-    * @access public
-    */
-    function dir_readdir()
+     * Read one entry from 'directory'
+     *
+     * @return mixed $entry Entry that has been read, or
+     *                      false if there are no entries left
+     */
+    public function dir_readdir()
     {
         if (!$this->_open) {
             return false;
@@ -490,22 +459,20 @@ class Stream_Var
     }
 
     /**
-    * Set the internal pointer
-    *
-    * Basically this method only sets the object property _pointer
-    * as a reference to a variable
-    *
-    * @param string  $scope  Scope of the variable: GLOBAL, GET,
-    *                        POST, COOKIE, SESSION, SERVER, ENV
-    * @param string  $path   Path to the variable. Array indices
-    *                        are seperated by a slash
-    * @param boolean $create Create the variable, if it does not exist
-    *
-    * @return boolean true if the pointer was set, false if not found
-    *
-    * @access private
+     * Set the internal pointer
+     *
+     * Basically this method only sets the object property _pointer
+     * as a reference to a variable
+     *
+     * @param string  $scope  Scope of the variable: GLOBAL, GET,
+     *                        POST, COOKIE, SESSION, SERVER, ENV
+     * @param string  $path   Path to the variable. Array indices
+     *                        are seperated by a slash
+     * @param boolean $create Create the variable, if it does not exist
+     *
+     * @return boolean true if the pointer was set, false if not found
     */
-    function _setPointer($scope, $path, $create = false)
+    protected function _setPointer($scope, $path, $create = false)
     {
         $varpath = explode('/', $path);
 

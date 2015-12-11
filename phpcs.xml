@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<ruleset name="PEAR-StreamVar">
+ <rule ref="PEAR">
+  <exclude name="PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps"/>
+  <exclude name="PEAR.NamingConventions.ValidFunctionName.PublicUnderscore"/>
+  <exclude name="PEAR.NamingConventions.ValidVariableName.PublicUnderscore"/>
+ </rule>
+</ruleset>
