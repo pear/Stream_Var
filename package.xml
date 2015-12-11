@@ -25,12 +25,12 @@
   <active>no</active>
  </lead>
 
- <date>2009-08-12</date>
- <time>08:43:50</time>
+ <date>2015-12-11</date>
+ <time>23:13:23</time>
 
  <version>
-  <release>1.1.0</release>
-  <api>1.1.0</api>
+  <release>1.2.0</release>
+  <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,10 +39,12 @@
 
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
  <notes>
-QA release:
-- Fix bug #4229: Stream_Var needs url_stat method [ahayes]
-- CS fixes [cweiske]
-- Convert to package.xml v2
+  * Change license from PHP-2.02 to LGPL-3.0 [cweiske]
+  * Add composer support [till]
+  * Fix bug #18678: Return false in url_stat for non existing files [cweiske]
+  * Fix bug #20992 in readdir() [cweiske]
+  * Bug #20993: Note about glob() not working [cweiske]
+  * Add unit tests [cweiske]
  </notes>
 
  <contents>
@@ -53,9 +55,15 @@ QA release:
     <file name="example_modes.php" role="doc" />
    </dir> <!-- //examples -->
    <dir name="Stream">
-    <file name="Var.php" role="php" />
+    <file name="Var.php" role="php">
+     <tasks:replace from="@package_version@" to="version" type="package-info" />
+    </file>
    </dir>
    <dir name="tests">
+    <file name="basic-contents.phpt" role="test" />
+    <file name="basic-dirlist-readdir.phpt" role="test" />
+    <file name="basic-subvar.phpt" role="test" />
+    <file name="bug18678.phpt" role="test" />
     <file name="bug4229-url_stat.phpt" role="test" />
    </dir>
   </dir> <!-- / -->
@@ -144,6 +152,26 @@ QA release:
    </notes>
   </release>
 
- </changelog>
+  <release>
+   <version>
+    <release>1.2.0</release>
+    <api>1.2.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2015-12-11</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+    * Change license from PHP-2.02 to LGPL-3.0 [cweiske]
+    * Add composer support [till]
+    * Fix bug #18678: Return false in url_stat for non existing files [cweiske]
+    * Fix bug #20992 in readdir() [cweiske]
+    * Bug #20993: Note about glob() not working [cweiske]
+    * Add unit tests [cweiske]
+   </notes>
+  </release>
 
+ </changelog>
 </package>
