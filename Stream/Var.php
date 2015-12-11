@@ -35,7 +35,7 @@ define("STREAM_VAR_WRITEABLE", 2);
  * Stream wrapper to access a variable
  *
  * Stream wrappers allow you to access any datasource using PHP's file manipulation functions
- * like fopen(), fclose(), fseek(), ftell(),.. as well as directory functions like 
+ * like fopen(), fclose(), fseek(), ftell(),.. as well as directory functions like
  * opendir() readdir() and closedir().
  *
  * This wrapper allows you to access any variable using these functions.
@@ -129,36 +129,31 @@ class Stream_Var
     */
     function stream_open($path, $mode, $options, &$opened_path)
     {
-        $url = parse_url($path);
-
-        $scope   = $url["host"];
-        $varpath = substr($url["path"], 1);
-        
         $mode = strtolower($mode);
         switch ($mode{0}) {
         case    "r":
-            $status = $this->_setPointer($scope, $varpath, false);
+            $status = $this->setPointerFromPath($path, false);
             $this->_mode = $this->_mode | STREAM_VAR_READABLE;
             break;
         case    "w":
         case    "a":
-            $status = $this->_setPointer($scope, $varpath, true);
+            $status = $this->setPointerFromPath($path, true);
             $this->_mode = $this->_mode | STREAM_VAR_WRITEABLE;
             break;
         case    "x":
-            $status = $this->_setPointer($scope, $varpath, false);
+            $status = $this->setPointerFromPath($path, false);
             if ($status) {
                 return false;
             }
-            $status = $this->_setPointer($scope, $varpath, true);
+            $status = $this->setPointerFromPath($path, true);
             $this->_mode = $this->_mode | STREAM_VAR_WRITEABLE;
             break;
         }
 
         if (!$status) {
-            return  false;
+            return false;
         }
-        
+
         if (!is_scalar($this->_pointer)) {
             return false;
         }
@@ -254,13 +249,13 @@ class Stream_Var
         if (!$this->_open) {
             return false;
         }
-        
+
         if (!($this->_mode & STREAM_VAR_WRITEABLE)) {
             return false;
         }
-        
+
         $datalen = strlen($data);
-       
+
         $this->_pointer = substr($this->_pointer, 0, $this->_pos)
             . $data
             . substr($this->_pointer, $this->_pos+$datalen);
@@ -344,20 +339,20 @@ class Stream_Var
 
     /**
      * This method is called in response to stat() calls on the URL paths
-     * 
+     *
      * As taken from the PHP Manual:
-     * 
-     * "This method is called in response to stat()  calls on the URL paths 
-     * associated with the wrapper and should return as many elements in 
-     * common with the system function as possible. Unknown or unavailable 
+     *
+     * "This method is called in response to stat()  calls on the URL paths
+     * associated with the wrapper and should return as many elements in
+     * common with the system function as possible. Unknown or unavailable
      * values should be set to a rational value (usually 0)."
-     * 
+     *
      * With regards to the implementation that is Stream_Var we can actually fake
      * some of the data. For instance, the uid and gid can be that of the corrent
-     * posix_getuid and posix_getgid() 
-     * 
+     * posix_getuid and posix_getgid()
+     *
      * The following outlines the information that we essentially fake:
-     * 
+     *
      * - 'dev': is unknown and set to 0
      * - 'ino': is unknown and set to 0
      * - 'mode': set to 33216 (chmod 700 means user has read,
@@ -374,23 +369,28 @@ class Stream_Var
      * - 'ctime': set to current value returned by time()
      * - 'blksize': is unknown and set to 0
      * - 'blocks': is unknown and set to 0
-     * 
+     *
      * @param string  $path  The path to stat.
-     * @param integer $flags Holds additional flags set by the streams API. 
-     *                       It can hold one or more of the following values 
+     * @param integer $flags Holds additional flags set by the streams API.
+     *                       It can hold one or more of the following values
      *                       OR'd together.
-     *                       - STREAM_URL_STAT_LINK - currently this is 
+     *                       - STREAM_URL_STAT_LINK - currently this is
      *                         ignored.
-     *                       - STREAM_URL_STAT_QUIET - makes call to 
+     *                       - STREAM_URL_STAT_QUIET - makes call to
      *                         strlen quiet
-     * 
+     *
      * @return array
-     * 
+     *
      * @see http://au.php.net/stream_wrapper_register
      * @author Alex Hayes <ahayes@wcg.net.au>
      */
     function url_stat($path, $flags)
     {
+        if (!$this->setPointerFromPath($path, false)) {
+            //does not exist 
+            return false;
+        }
+
         $time = time();
         $keys = array(
             'dev'     => 0,
@@ -401,7 +401,7 @@ class Stream_Var
             //this processes uid
             'uid'     => function_exists('posix_getuid') ? posix_getuid() : 0,
             //this processes gid
-            'gid'     => function_exists('posix_getgid') ? posix_getgid() : 0, 
+            'gid'     => function_exists('posix_getgid') ? posix_getgid() : 0,
             'rdev'    => 0,
             'size'    => $flags & STREAM_URL_STAT_QUIET
                 ? @strlen($this->_pointer) : strlen($this->_pointer),
@@ -427,16 +427,7 @@ class Stream_Var
     */
     function dir_opendir($path, $options)
     {
-        $url = parse_url($path);
-
-        $scope   = $url['host'];
-        if (isset($url['path'])) {
-            $varpath = substr($url['path'], 1);
-        } else {
-            $varpath = '';
-        }
-        
-        if (!$status = $this->_setPointer($scope, $varpath)) {
+        if (!$this->setPointerFromPath($path, false)) {
             return false;
         }
 
@@ -482,7 +473,7 @@ class Stream_Var
     * Read one entry from 'directory'
     *
     * @return mixed $entry Entry that has been read, or
-    *                      false if there are no entries left  
+    *                      false if there are no entries left
     *
     * @access public
     */
@@ -576,8 +567,30 @@ class Stream_Var
                 $this->_pointer[$part] = '';
             }
             $this->_pointer = &$this->_pointer[$part];
-        }        
+        }
         return true;
+    }
+
+    /**
+     * Set the internal pointer variable from the given variable path.
+     *
+     * @param string  $path   Variable path like GLOBALS/foo/bar
+     * @param boolean $create If the variable should be created if it does not
+     *                        exists
+     *
+     * @return boolean True if the pointer could be set (variable found)
+     */
+    protected function setPointerFromPath($path, $create = false)
+    {
+        $url    = parse_url($path);
+        $scope = $url['host'];
+        if (isset($url['path'])) {
+            $varpath = substr($url['path'], 1);
+        } else {
+            $varpath = '';
+        }
+
+        return $this->_setPointer($scope, $varpath, $create);
     }
 }
 ?>
