@@ -11,21 +11,16 @@
             "Stream": "./"
         }
     },
-    "description": "More info available on: http://pear.php.net/package/Stream_Var",
+    "description": "Allow stream based access to any variable.",
+    "homepage": "http://pear.php.net/package/Stream_Var",
     "include-path": [
         "./"
     ],
-    "license": "PHP License",
+    "license": "PHP-3.0",
     "name": "pear/stream_var",
     "support": {
         "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Stream_Var",
         "source": "https://github.com/pear/Stream_Var"
     },
-    "type": "library",
-    "require": {
-        "pear/pear_exception": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "*"
-    }
+    "type": "library"
 }
