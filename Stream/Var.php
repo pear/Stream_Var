@@ -74,6 +74,8 @@ define("STREAM_VAR_WRITEABLE", 2);
  * var://SESSION.
  * But this can be used to replace temporary files with variables.
  *
+ * Note that glob() does not work with stream wrappers.
+ *
  * @category Stream
  * @package  Stream_Var
  * @version  0.2.1
