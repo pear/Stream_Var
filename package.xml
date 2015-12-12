@@ -25,8 +25,8 @@
   <active>no</active>
  </lead>
 
- <date>2015-12-11</date>
- <time>23:13:23</time>
+ <date>2015-12-12</date>
+ <time>12:29:23</time>
 
  <version>
   <release>1.2.0</release>
@@ -72,10 +72,10 @@
  <dependencies>
   <required>
    <php>
-    <min>4.3.2</min>
+    <min>5.4.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.9.0</min>
    </pearinstaller>
   </required>
  </dependencies>
@@ -161,7 +161,7 @@ QA release:
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2015-12-11</date>
+   <date>2015-12-12</date>
    <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
    <notes>
     * Change license from PHP-2.02 to LGPL-3.0 [cweiske]
