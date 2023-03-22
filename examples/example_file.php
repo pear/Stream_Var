@@ -1,12 +1,12 @@
 <?PHP
     require_once 'Stream/Var.php';
     stream_wrapper_register( "var", "Stream_Var" );
-    
+
     $myVar = array(
                     "foo" => "bar",
                     "argh" => "I really like tomatoes."
                    );
-    
+
     echo    "myVar:";
     echo	"<pre>";
     print_r( $myVar );
@@ -18,10 +18,10 @@
 
         $data = fread($fp, 9);
         echo    "reading 9 chars from stream: $data<br>";
-    
+
         echo "write 'hate' to stream.<br>";
         fwrite($fp,"hate");
-        
+
         fclose($fp);
     }
     echo    "<br>";

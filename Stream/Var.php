@@ -364,7 +364,7 @@ class Stream_Var
     public function url_stat($path, $flags)
     {
         if (!$this->setPointerFromPath($path, false)) {
-            //does not exist 
+            //does not exist
             return false;
         }
 

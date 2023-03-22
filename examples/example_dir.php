@@ -12,7 +12,7 @@
             echo "seems to be a directory<br><br>";
             continue;
         }
-           
+
         echo "reading from $entry<br>";
         while (!feof($fp)) {
             echo fread($fp, 16);

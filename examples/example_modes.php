@@ -7,12 +7,12 @@
     echo	"_GET variables:<pre>";
     print_r( $_GET );
     echo	"</pre>";
-    
+
     echo    "<strong>open '$varname' with mode 'r':</strong><br>";
     echo    "This should fail, as the variable does not exist.<br>";
     $fp = fopen($varname, "r");
     fclose($fp);
-    
+
     echo	"<br>_GET variables:<pre>";
     print_r( $_GET );
     echo	"</pre>";
