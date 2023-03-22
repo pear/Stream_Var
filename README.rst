@@ -17,7 +17,6 @@ One example use case for ``Stream_Var`` is temporarily modifying data for
 code that only uses file functions::
 
     <?php
-    require_once 'Stream/Var.php';
     stream_wrapper_register('var', 'Stream_Var');
 
     $GLOBALS['somefile'] = "blah blah blah\n";
@@ -30,16 +29,6 @@ code that only uses file functions::
 ============
 Installation
 ============
-
-PEAR
-====
-::
-
-    $ pear install stream_var
-
-
-Composer
-========
 ::
 
     $ composer require pear/stream_var
