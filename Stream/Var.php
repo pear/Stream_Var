@@ -520,7 +520,14 @@ class Stream_Var
         // global variables
         case 'GLOBALS':
         default:
-            $this->_pointer = &$GLOBALS;
+            if (empty($varpath)) {
+                throw new \Exception('GLOBALS needs a path');
+            }
+            $part = array_shift($varpath);
+            if (!isset($GLOBALS[$part])) {
+                return false;
+            }
+            $this->_pointer = &$GLOBALS[$part];
             break;
         }
         if (empty($varpath)) {
