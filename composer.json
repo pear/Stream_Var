@@ -7,15 +7,12 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "Stream": "./"
-        }
+        "classmap": [
+            "Stream/Var.php"
+        ]
     },
     "description": "Allow stream based access to any variable.",
     "homepage": "http://pear.php.net/package/Stream_Var",
-    "include-path": [
-        "./"
-    ],
     "license": "LGPL-3.0",
     "name": "pear/stream_var",
     "support": {
