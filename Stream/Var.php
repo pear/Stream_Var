@@ -107,6 +107,8 @@ class Stream_Var
      */
     protected $_mode = 0;
 
+    public $context;
+
     /**
      * Method used by fopen.
      *
