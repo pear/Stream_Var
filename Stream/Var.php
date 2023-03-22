@@ -456,7 +456,9 @@ class Stream_Var
         if (key($this->_pointer) == count($this->_pointer) - 1) {
             return false;
         }
-        list($key) = each($this->_pointer);
+        $key = key($this->_pointer);
+        next($this->_pointer);
+
         return $key;
     }
 
