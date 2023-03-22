@@ -22,5 +22,8 @@
         "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Stream_Var",
         "source": "https://github.com/pear/Stream_Var"
     },
-    "type": "library"
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
 }

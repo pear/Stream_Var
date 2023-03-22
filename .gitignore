@@ -4,3 +4,4 @@ composer.phar
 vendor
 /README.html
 /dist
+/.phpunit.result.cache

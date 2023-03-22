@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<phpunit>
+ <php>
+  <!-- work around phpunit bug https://github.com/sebastianbergmann/phpunit/issues/4971 -->
+  <env name="XDEBUG_MODE" value="off"/>
+ </php>
+ <testsuites>
+  <testsuite name="tests">
+   <directory suffix=".phpt">tests</directory>
+  </testsuite>
+ </testsuites>
+</phpunit>
