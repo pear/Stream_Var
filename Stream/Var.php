@@ -122,7 +122,7 @@ class Stream_Var
     public function stream_open($path, $mode, $options, &$opened_path)
     {
         $mode = strtolower($mode);
-        switch ($mode{0}) {
+        switch ($mode[0]) {
         case    "r":
             $status = $this->setPointerFromPath($path, false);
             $this->_mode = $this->_mode | STREAM_VAR_READABLE;
@@ -155,11 +155,11 @@ class Stream_Var
         $this->_open = true;
         $opened_path = $path;
 
-        if ($mode{0} == 'a') {
+        if ($mode[0] == 'a') {
             $this->stream_seek(0, SEEK_END);
         }
 
-        if (strlen($mode) > 1 && $mode{1} == '+') {
+        if (strlen($mode) > 1 && $mode[1] == '+') {
             $this->_mode = $this->_mode | STREAM_VAR_READABLE | STREAM_VAR_WRITEABLE;
         }
 
